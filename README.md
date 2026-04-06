@@ -132,3 +132,43 @@ https://你的域名/mcp
 - Agent feature: https://docs.firecrawl.dev/features/agent
 - LLMs.txt alpha: https://docs.firecrawl.dev/features/alpha/llmstxt
 - Deep Research alpha: https://docs.firecrawl.dev/features/alpha/deep-research
+
+## Claude Code Skills（远程）
+
+仓库已新增一整套面向 Claude Code 的 skills，放在：
+
+```text
+.claude/skills/
+```
+
+已提供：
+- `firecrawl-router`
+- `firecrawl-scrape`
+- `firecrawl-search-map`
+- `firecrawl-crawl`
+- `firecrawl-extract`
+- `firecrawl-browser`
+- `firecrawl-interact`
+- `firecrawl-agent`
+- `firecrawl-usage`
+- `firecrawl-raw-request`
+- `firecrawl-sdk-router`
+
+同时提供远程 MCP 配置示例：
+
+- `.mcp.json.example`
+
+示例：
+
+```json
+{
+  "mcpServers": {
+    "firecrawl-router-http": {
+      "type": "http",
+      "url": "https://你的域名/mcp"
+    }
+  }
+}
+```
+
+这样 Claude Code 可直接远程调用你的服务器，而不是在本地堆很多额外工具文件。
