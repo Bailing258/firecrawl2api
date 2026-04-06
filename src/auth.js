@@ -28,12 +28,16 @@ function cleanupSessions() {
   }
 }
 
-function buildCookie(token) {
-  return `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${SESSION_TTL_MS / 1000}`;
+function buildCookie(token, req) {
+  const isSecure = req.secure || req.headers['x-forwarded-proto'] === 'https';
+  const sameSite = isSecure ? 'None' : 'Lax';
+  return `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=${sameSite}; Max-Age=${SESSION_TTL_MS / 1000}${isSecure ? '; Secure' : ''}`;
 }
 
-function clearCookie() {
-  return `${SESSION_COOKIE_NAME}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`;
+function clearCookie(req) {
+  const isSecure = req.secure || req.headers['x-forwarded-proto'] === 'https';
+  const sameSite = isSecure ? 'None' : 'Lax';
+  return `${SESSION_COOKIE_NAME}=; Path=/; HttpOnly; SameSite=${sameSite}; Max-Age=0${isSecure ? '; Secure' : ''}`;
 }
 
 function requireLogin(req, res, next) {
@@ -63,12 +67,12 @@ function loginHandler(req, res) {
     return res.status(401).json({ ok: false, message: '登录密码错误' });
   }
   const token = createSession();
-  res.setHeader('Set-Cookie', buildCookie(token));
+  res.setHeader('Set-Cookie', buildCookie(token, req));
   res.json({ ok: true, message: '登录成功' });
 }
 
-function logoutHandler(_, res) {
-  res.setHeader('Set-Cookie', clearCookie());
+function logoutHandler(req, res) {
+  res.setHeader('Set-Cookie', clearCookie(req));
   res.json({ ok: true });
 }
 

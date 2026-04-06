@@ -101,7 +101,7 @@
       </div>
       <div class="card" style="margin:0;">
         <div class="stat">接口根地址<strong>http://127.0.0.1:13457</strong></div>
-        <div class="stat">MCP HTTP<strong>http://127.0.0.1:13458/mcp</strong></div>
+        <div class="stat">MCP HTTP<strong id="mcpRootText">????????/mcp</strong></div>
         <div class="stat">轮询策略<strong>Round Robin</strong></div>
         <div class="row" style="margin-top:12px;"><button class="secondary" id="logoutBtn">退出登录</button></div>
       </div>
@@ -181,7 +181,7 @@
   </div>
 
   <script>
-    const API = 'http://127.0.0.1:13457';
+    const API = window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost') ? 'http://127.0.0.1:13457' : window.location.origin;
     const statsEl = document.getElementById('stats');
     const keysListEl = document.getElementById('keysList');
     const logsListEl = document.getElementById('logsList');
@@ -194,10 +194,15 @@
     const pageInfo = document.getElementById('pageInfo');
     const keySummary = document.getElementById('keySummary');
     const batchProgress = document.getElementById('batchProgress');
+    const apiRootText = document.getElementById('apiRootText');
+    const mcpRootText = document.getElementById('mcpRootText');
 
     let allKeys = [];
     let currentPage = 1;
     let pageSize = Number(pageSizeSelect.value);
+
+    apiRootText.textContent = API;
+    mcpRootText.textContent = `${window.location.origin}/mcp`;
 
     async function j(url, options) {
       const res = await fetch(url, { credentials: 'include', ...options });

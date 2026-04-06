@@ -7,7 +7,21 @@ const logger = require('./logger');
 const { requireLogin, requireApiKey, loginHandler, logoutHandler, meHandler } = require('./auth');
 
 const app = express();
-app.use(cors({ origin: ['http://127.0.0.1:13456', 'http://localhost:13456'], credentials: true }));
+app.set('trust proxy', true);
+
+const allowlist = new Set([
+  'http://127.0.0.1:13456',
+  'http://localhost:13456',
+  'https://fire.bailingzzz.us.ci'
+]);
+
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowlist.has(origin)) return callback(null, true);
+    return callback(new Error(`CORS origin not allowed: ${origin}`));
+  },
+  credentials: true,
+}));
 app.use(express.json({ limit: '8mb' }));
 app.use(express.text({ type: 'text/plain', limit: '8mb' }));
 

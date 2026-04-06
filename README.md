@@ -172,3 +172,55 @@ https://你的域名/mcp
 ```
 
 这样 Claude Code 可直接远程调用你的服务器，而不是在本地堆很多额外工具文件。
+# Firecrawl Router Station
+
+这是一个基于 Firecrawl 官方 v2 路径的本地中转站，目标是：以后无论写 SDK、脚本、MCP 还是人工调试，都尽量只走你自己的本地中转，而不是直接依赖远端 Firecrawl 域名。
+
+## 端口
+
+- WebUI：`13456`
+- API：`13457`
+- MCP Streamable HTTP：`13456/mcp`
+- MCP 兼容旧地址：`13458/mcp`
+- MCP stdio：本地进程模式
+
+## 同域部署建议
+
+如果你已经挂了域名，前端现在会自动优先使用：
+
+```text
+window.location.origin
+```
+
+也就是：
+- 页面在 `https://你的域名` 打开时
+- 登录、管理接口、状态查询都会自动走同域
+- MCP 也走 `https://你的域名/mcp`
+
+这样可以避免：
+- CORS
+- 跨站 Cookie
+- `127.0.0.1` 写死导致的登录失败
+
+本地开发时仍会自动回落到：
+- API：`http://127.0.0.1:13457`
+- MCP：`http://127.0.0.1:13456/mcp`
+
+## 反向代理建议
+
+推荐把域名代理成：
+- `/` -> WebUI 13456
+- `/mcp` -> WebUI 13456 上挂载的 MCP
+- `/auth/*` -> API 13457
+- `/admin/*` -> API 13457
+- `/v2/*` -> API 13457
+
+## Cookie / 登录
+
+后端现在已支持：
+- `trust proxy`
+- 根据 `x-forwarded-proto=https` 自动切换 Cookie 为
+  - `SameSite=None`
+  - `Secure`
+
+这样 HTTPS 域名反代后，登录 cookie 可以正常工作。
