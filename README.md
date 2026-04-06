@@ -18,9 +18,11 @@
 - info / error 日志
 - WebUI 登录密码保护
 - API 调用密钥保护
-- Firecrawl MCP Server
+- Firecrawl MCP Server（stdio + streamable HTTP）
 - Firecrawl Skill
 - 暖色系中文界面
+- Key 列表分页显示
+- 日志第二选项卡滚动查看
 
 ## 环境变量
 
@@ -71,6 +73,16 @@ Aa:2669521609
 - 查看余额 / 用量
 - 查看日志
 - 删除 key
+- Key 分页切换
+- 日志滚动查看
+
+每页可切换：
+- `10`
+- `20`
+- `140`
+- `100`
+- `500`
+- `1000`
 
 ## API 调用鉴权
 
@@ -98,18 +110,19 @@ curl -X POST http://127.0.0.1:13457/v2/scrape \
 
 ## 管理接口
 
-以下接口需要先通过 WebUI 登录建立会话：
-
+公开接口：
+- `GET /health`
 - `POST /auth/login`
 - `POST /auth/logout`
 - `GET /auth/me`
+
+以下接口需要先通过 WebUI 登录建立会话：
 - `POST /admin/keys/import`
 - `GET /admin/keys`
 - `DELETE /admin/keys/:id`
 - `GET /admin/keys/export`
 - `GET /admin/overview`
 - `GET /admin/logs`
-- `GET /health`
 
 ## 代理的 Firecrawl 路径
 

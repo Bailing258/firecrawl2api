@@ -18,84 +18,57 @@
       --shadow: 0 18px 40px rgba(188, 122, 45, 0.12);
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, #fff8f0 0%, #fdeedc 100%);
-    }
+    body { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif; color: var(--text); background: linear-gradient(180deg, #fff8f0 0%, #fdeedc 100%); }
     .wrap { max-width: 1280px; margin: 0 auto; padding: 28px; }
-    .hero {
-      background: linear-gradient(135deg, #fffdf8 0%, #f9dcc1 100%);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      border-radius: 28px;
-      padding: 28px;
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 18px;
-    }
-    h1 { margin: 0 0 8px; font-size: 36px; }
+    .hero { background: linear-gradient(135deg, #fffdf8 0%, #f9dcc1 100%); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 28px; padding: 28px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; }
+    h1,h2,h3 { margin-top: 0; }
     .subtitle { color: var(--muted); margin: 0; line-height: 1.6; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #fff1df; border: 1px solid #f3c796; color: #a35709;
-      padding: 8px 12px; border-radius: 999px; font-size: 13px; margin-bottom: 14px;
-    }
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: #fff1df; border: 1px solid #f3c796; color: #a35709; padding: 8px 12px; border-radius: 999px; font-size: 13px; margin-bottom: 14px; }
     .panel-grid, .stat-grid { display: grid; gap: 18px; margin-top: 20px; }
     .panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 22px;
-      padding: 20px; box-shadow: var(--shadow);
-    }
-    .card h3 { margin-top: 0; }
-    textarea, input, select {
-      width: 100%; border: 1px solid #e8c39a; border-radius: 14px; background: #fffcf7;
-      padding: 12px 14px; color: var(--text); font: inherit;
-    }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 20px; box-shadow: var(--shadow); }
+    textarea, input, select { width: 100%; border: 1px solid #e8c39a; border-radius: 14px; background: #fffcf7; padding: 12px 14px; color: var(--text); font: inherit; }
     textarea { min-height: 150px; resize: vertical; }
-    button {
-      border: none; border-radius: 14px; padding: 12px 18px; font-weight: 700; cursor: pointer;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-      color: #fffaf5; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18);
-    }
+    button { border: none; border-radius: 14px; padding: 12px 18px; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color: #fffaf5; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18); }
     button.secondary { background: #fff2e2; color: #a45710; border: 1px solid #efc18d; box-shadow: none; }
     button.danger { background: #fff0e5; color: #b45309; border: 1px solid #efc18d; box-shadow: none; }
+    button.tab-btn { box-shadow: none; }
     .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .row.center { align-items: center; }
     .stat { font-size: 14px; color: var(--muted); }
     .stat strong { display: block; font-size: 28px; color: var(--text); margin-top: 6px; }
-    .key-item, .log-item {
-      border: 1px solid #efd3b3; border-radius: 18px; padding: 14px; background: #fff9f2; margin-bottom: 12px;
-    }
+    .key-item, .log-item { border: 1px solid #efd3b3; border-radius: 18px; padding: 14px; background: #fff9f2; margin-bottom: 12px; }
     .key-top, .log-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .muted { color: var(--muted); font-size: 13px; }
     .ok { color: var(--ok); }
     .error { color: var(--error); }
     .mono { font-family: Consolas, monospace; }
     .hidden { display: none !important; }
-    .login-mask {
-      position: fixed; inset: 0; background: rgba(255, 247, 239, 0.86);
-      display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px);
-    }
+    .login-mask { position: fixed; inset: 0; background: rgba(255, 247, 239, 0.86); display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
     .login-card { width: min(460px, 100%); }
     .tip { font-size: 13px; color: var(--muted); margin-top: 8px; }
-    @media (max-width: 960px) {
-      .hero, .panel-grid, .stat-grid { grid-template-columns: 1fr; }
-    }
+    .tabs { display: flex; gap: 10px; margin-bottom: 16px; }
+    .tab-btn.active { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color: #fffaf5; }
+    .tab-btn:not(.active) { background: #fff2e2; color: #a45710; border: 1px solid #efc18d; }
+    .tab-panel.hidden { display: none; }
+    .list-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+    .pager { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .scroll-box { max-height: 620px; overflow: auto; padding-right: 4px; }
+    .scroll-box::-webkit-scrollbar { width: 10px; }
+    .scroll-box::-webkit-scrollbar-thumb { background: #e8c39a; border-radius: 999px; }
+    @media (max-width: 960px) { .hero, .panel-grid, .stat-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <div id="loginMask" class="login-mask">
     <div class="card login-card">
       <div class="badge">登录保护</div>
-      <h2 style="margin-top:0;">登录 Firecrawl 中转站</h2>
+      <h2>登录 Firecrawl 中转站</h2>
       <p class="subtitle">请输入后台登录密码后查看密钥、余额、日志和导出功能。</p>
       <input id="passwordInput" type="password" placeholder="请输入登录密码" />
-      <div class="row" style="margin-top:12px; align-items:center;">
-        <button id="loginBtn">登录</button>
-      </div>
-      <div class="tip">API 调用密码需放在请求头 `x-api-key` 或 `Authorization: Bearer ...`。</div>
+      <div class="row" style="margin-top:12px;"><button id="loginBtn">登录</button></div>
+      <div class="tip">API 调用密码需放在请求头 <span class="mono">x-api-key</span> 或 <span class="mono">Authorization: Bearer ...</span>。</div>
       <div id="loginMsg" class="error" style="margin-top:10px;"></div>
     </div>
   </div>
@@ -108,12 +81,10 @@
         <p class="subtitle">API 监听 <span class="mono">13457</span>，WebUI 监听 <span class="mono">13456</span>。页面每 15 秒自动轮询，集中管理多把 Firecrawl Key、余额、用量与日志。</p>
       </div>
       <div class="card" style="margin:0;">
-        <div class="stat">接口根地址<strong id="apiRoot">http://127.0.0.1:13457</strong></div>
+        <div class="stat">接口根地址<strong>http://127.0.0.1:13457</strong></div>
         <div class="stat">MCP HTTP<strong>http://127.0.0.1:13458/mcp</strong></div>
         <div class="stat">轮询策略<strong>Round Robin</strong></div>
-        <div class="row" style="margin-top:12px;">
-          <button class="secondary" id="logoutBtn">退出登录</button>
-        </div>
+        <div class="row" style="margin-top:12px;"><button class="secondary" id="logoutBtn">退出登录</button></div>
       </div>
     </section>
 
@@ -136,24 +107,55 @@
       </div>
     </section>
 
-    <section class="panel-grid">
-      <div class="card">
-        <h3>Key 列表 / 余额 / 用量</h3>
-        <div id="keysList"></div>
+    <section class="card" style="margin-top:20px;">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="keys">Key 列表</button>
+        <button class="tab-btn secondary" data-tab="logs">日志</button>
       </div>
-      <div class="card">
-        <div class="row" style="justify-content:space-between; align-items:center;">
-          <h3 style="margin-bottom:0;">日志</h3>
+
+      <div id="tab-keys" class="tab-panel">
+        <div class="list-toolbar">
+          <div>
+            <h3 style="margin-bottom:4px;">Key 列表 / 余额 / 用量</h3>
+            <div class="muted" id="keySummary">当前第 1 页</div>
+          </div>
+          <div class="row center">
+            <label class="muted">每页显示</label>
+            <select id="pageSizeSelect" style="width:120px;">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="140">140</option>
+              <option value="100">100</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+            </select>
+          </div>
+        </div>
+        <div id="keysList"></div>
+        <div class="pager">
+          <button class="secondary" id="prevPageBtn">上一页</button>
+          <span class="muted" id="pageInfo">第 1 / 1 页</span>
+          <button class="secondary" id="nextPageBtn">下一页</button>
+        </div>
+      </div>
+
+      <div id="tab-logs" class="tab-panel hidden">
+        <div class="list-toolbar">
+          <div>
+            <h3 style="margin-bottom:4px;">日志</h3>
+            <div class="muted">日志区域启用滚动，不再整页铺开。</div>
+          </div>
           <select id="logLevel" style="max-width:180px;">
             <option value="">全部</option>
             <option value="info">info</option>
             <option value="error">error</option>
           </select>
         </div>
-        <div id="logsList"></div>
+        <div id="logsList" class="scroll-box"></div>
       </div>
     </section>
   </div>
+
   <script>
     const API = 'http://127.0.0.1:13457';
     const statsEl = document.getElementById('stats');
@@ -164,6 +166,13 @@
     const loginMask = document.getElementById('loginMask');
     const appWrap = document.getElementById('appWrap');
     const loginMsg = document.getElementById('loginMsg');
+    const pageSizeSelect = document.getElementById('pageSizeSelect');
+    const pageInfo = document.getElementById('pageInfo');
+    const keySummary = document.getElementById('keySummary');
+
+    let allKeys = [];
+    let currentPage = 1;
+    let pageSize = Number(pageSizeSelect.value);
 
     async function j(url, options) {
       const res = await fetch(url, { credentials: 'include', ...options });
@@ -174,16 +183,8 @@
       return data;
     }
 
-    function showApp() {
-      loginMask.classList.add('hidden');
-      appWrap.classList.remove('hidden');
-    }
-
-    function showLogin(message = '') {
-      appWrap.classList.add('hidden');
-      loginMask.classList.remove('hidden');
-      loginMsg.textContent = message;
-    }
+    function showApp() { loginMask.classList.add('hidden'); appWrap.classList.remove('hidden'); }
+    function showLogin(message = '') { appWrap.classList.add('hidden'); loginMask.classList.remove('hidden'); loginMsg.textContent = message; }
 
     function renderStats(aggregate) {
       const cards = [
@@ -192,21 +193,35 @@
         ['剩余 Tokens', aggregate.remainingTokens ?? 0],
         ['累计代理请求', aggregate.totalRequests ?? 0],
       ];
-      statsEl.innerHTML = cards.map(([label, value]) => `
-        <div class="card stat">${label}<strong>${value}</strong></div>
-      `).join('');
+      statsEl.innerHTML = cards.map(([label, value]) => `<div class="card stat">${label}<strong>${value}</strong></div>`).join('');
     }
 
-    function renderKeys(perKey) {
-      if (!perKey.length) {
+    function getPagedKeys() {
+      const total = allKeys.length;
+      const totalPages = Math.max(1, Math.ceil(total / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+      const start = (currentPage - 1) * pageSize;
+      const end = start + pageSize;
+      return { list: allKeys.slice(start, end), total, totalPages, start };
+    }
+
+    function renderKeys() {
+      const { list, total, totalPages, start } = getPagedKeys();
+      keySummary.textContent = `共 ${total} 条，当前显示第 ${currentPage} 页`; 
+      pageInfo.textContent = `第 ${currentPage} / ${totalPages} 页`;
+      document.getElementById('prevPageBtn').disabled = currentPage <= 1;
+      document.getElementById('nextPageBtn').disabled = currentPage >= totalPages;
+
+      if (!list.length) {
         keysListEl.innerHTML = '<p class="muted">当前还没有导入任何 key。</p>';
         return;
       }
-      keysListEl.innerHTML = perKey.map(item => `
+
+      keysListEl.innerHTML = list.map((item, idx) => `
         <div class="key-item">
           <div class="key-top">
             <div>
-              <strong>${item.maskedKey}</strong>
+              <strong>#${start + idx + 1} · ${item.maskedKey}</strong>
               <div class="muted mono">${item.fingerprint}</div>
             </div>
             <button class="danger" onclick="removeKey('${item.id}')">删除</button>
@@ -247,14 +262,12 @@
         const overview = await j(`${API}/admin/overview`);
         const logs = await j(`${API}/admin/logs${logLevelEl.value ? `?level=${logLevelEl.value}` : ''}`);
         renderStats(overview.aggregate || {});
-        renderKeys(overview.perKey || []);
+        allKeys = overview.perKey || [];
+        renderKeys();
         renderLogs(logs.logs || []);
         runtimeBox.innerHTML = `最后刷新：<b>${new Date().toLocaleString()}</b><br>API：<span class="mono">${API}</span><br>轮询间隔：15 秒`;
       } catch (err) {
-        if (err.status === 401) {
-          showLogin('登录已失效，请重新输入密码');
-          return;
-        }
+        if (err.status === 401) return showLogin('登录已失效，请重新输入密码');
         runtimeBox.innerHTML = `<span class="error">刷新失败：${err.message}</span>`;
       }
     }
@@ -267,28 +280,19 @@
 
     document.getElementById('importBtn').onclick = async () => {
       const keysText = document.getElementById('keysInput').value.trim();
-      await j(`${API}/admin/keys/import`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ keysText })
-      });
+      await j(`${API}/admin/keys/import`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ keysText }) });
       document.getElementById('keysInput').value = '';
+      currentPage = 1;
       refresh();
     };
 
-    document.getElementById('exportBtn').onclick = () => {
-      window.open(`${API}/admin/keys/export`, '_blank');
-    };
+    document.getElementById('exportBtn').onclick = () => window.open(`${API}/admin/keys/export`, '_blank');
 
     document.getElementById('loginBtn').onclick = async () => {
       loginMsg.textContent = '';
       const password = document.getElementById('passwordInput').value;
       try {
-        await j(`${API}/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password })
-        });
+        await j(`${API}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }) });
         document.getElementById('passwordInput').value = '';
         showApp();
         refresh();
@@ -301,6 +305,26 @@
       await j(`${API}/auth/logout`, { method: 'POST' });
       showLogin('已退出登录');
     };
+
+    pageSizeSelect.onchange = () => {
+      pageSize = Number(pageSizeSelect.value);
+      currentPage = 1;
+      renderKeys();
+    };
+    document.getElementById('prevPageBtn').onclick = () => { if (currentPage > 1) { currentPage -= 1; renderKeys(); } };
+    document.getElementById('nextPageBtn').onclick = () => {
+      const totalPages = Math.max(1, Math.ceil(allKeys.length / pageSize));
+      if (currentPage < totalPages) { currentPage += 1; renderKeys(); }
+    };
+
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.onclick = () => {
+        document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-keys').classList.toggle('hidden', btn.dataset.tab !== 'keys');
+        document.getElementById('tab-logs').classList.toggle('hidden', btn.dataset.tab !== 'logs');
+      };
+    });
 
     logLevelEl.onchange = refresh;
 
