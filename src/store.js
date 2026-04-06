@@ -1,4 +1,4 @@
-const fs = require('node:fs');
+﻿const fs = require('node:fs');
 const crypto = require('node:crypto');
 const { STORE_FILE } = require('./config');
 
@@ -36,6 +36,36 @@ function normalizeKeys(text) {
     .filter(Boolean))];
 }
 
+function createKeyRecord(key) {
+  return {
+    id: crypto.randomUUID(),
+    key,
+    fingerprint: fingerprint(key),
+    maskedKey: maskKey(key),
+    addedAt: new Date().toISOString(),
+    lastUsedAt: null,
+    requestCount: 0,
+    lastStatus: 'idle',
+    lastError: null,
+    balance: {
+      remainingCredits: null,
+      planCredits: null,
+      usedCredits: null,
+      remainingTokens: null,
+      planTokens: null,
+      usedTokens: null,
+      billingPeriodStart: null,
+      billingPeriodEnd: null,
+      lastCheckedAt: null,
+    },
+  };
+}
+
+function sanitizeKey(item) {
+  const { key, ...safe } = item;
+  return safe;
+}
+
 function importKeys(text) {
   const incoming = normalizeKeys(text);
   const store = readStore();
@@ -44,17 +74,7 @@ function importKeys(text) {
 
   for (const key of incoming) {
     if (existing.has(key)) continue;
-    store.keys.push({
-      id: crypto.randomUUID(),
-      key,
-      fingerprint: fingerprint(key),
-      maskedKey: maskKey(key),
-      addedAt: new Date().toISOString(),
-      lastUsedAt: null,
-      requestCount: 0,
-      lastStatus: 'idle',
-      lastError: null,
-    });
+    store.keys.push(createKeyRecord(key));
     existing.add(key);
     added += 1;
   }
@@ -68,11 +88,16 @@ function exportKeys() {
 }
 
 function listKeys() {
-  return readStore().keys.map(({ key, ...safe }) => safe);
+  return readStore().keys.map(sanitizeKey);
 }
 
 function listKeysWithSecrets() {
   return readStore().keys;
+}
+
+function getKeyById(id) {
+  const found = readStore().keys.find((item) => item.id === id);
+  return found || null;
 }
 
 function updateKey(id, patch) {
@@ -81,8 +106,7 @@ function updateKey(id, patch) {
   if (idx === -1) return null;
   store.keys[idx] = { ...store.keys[idx], ...patch };
   writeStore(store);
-  const { key, ...safe } = store.keys[idx];
-  return safe;
+  return sanitizeKey(store.keys[idx]);
 }
 
 function removeKey(id) {
@@ -118,6 +142,7 @@ module.exports = {
   exportKeys,
   listKeys,
   listKeysWithSecrets,
+  getKeyById,
   updateKey,
   removeKey,
   nextKey,

@@ -15,6 +15,14 @@
       --accent-2: #f59e0b;
       --ok: #7c5a18;
       --error: #b45309;
+      --warn: #c2410c;
+      --cmd-bg: #1e1510;
+      --cmd-line: #2a1f18;
+      --cmd-text: #f4e7d6;
+      --cmd-info: #f6c177;
+      --cmd-error: #ff8b6b;
+      --cmd-meta: #9ac08f;
+      --cmd-code: #79c3ff;
       --shadow: 0 18px 40px rgba(188, 122, 45, 0.12);
     }
     * { box-sizing: border-box; }
@@ -26,23 +34,26 @@
     .badge { display: inline-flex; align-items: center; gap: 8px; background: #fff1df; border: 1px solid #f3c796; color: #a35709; padding: 8px 12px; border-radius: 999px; font-size: 13px; margin-bottom: 14px; }
     .panel-grid, .stat-grid { display: grid; gap: 18px; margin-top: 20px; }
     .panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .stat-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 20px; box-shadow: var(--shadow); }
     textarea, input, select { width: 100%; border: 1px solid #e8c39a; border-radius: 14px; background: #fffcf7; padding: 12px 14px; color: var(--text); font: inherit; }
     textarea { min-height: 150px; resize: vertical; }
-    button { border: none; border-radius: 14px; padding: 12px 18px; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color: #fffaf5; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18); }
+    button { border: none; border-radius: 14px; padding: 10px 16px; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color: #fffaf5; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18); }
     button.secondary { background: #fff2e2; color: #a45710; border: 1px solid #efc18d; box-shadow: none; }
     button.danger { background: #fff0e5; color: #b45309; border: 1px solid #efc18d; box-shadow: none; }
-    button.tab-btn { box-shadow: none; }
+    button.mini { padding: 8px 12px; font-size: 12px; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
     .row { display: flex; gap: 12px; flex-wrap: wrap; }
     .row.center { align-items: center; }
     .stat { font-size: 14px; color: var(--muted); }
-    .stat strong { display: block; font-size: 28px; color: var(--text); margin-top: 6px; }
-    .key-item, .log-item { border: 1px solid #efd3b3; border-radius: 18px; padding: 14px; background: #fff9f2; margin-bottom: 12px; }
-    .key-top, .log-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .stat strong { display: block; font-size: 24px; color: var(--text); margin-top: 6px; }
+    .key-item { border-bottom: 1px dashed #efcfaa; padding: 14px 0; }
+    .key-item:last-child { border-bottom: none; }
+    .key-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .muted { color: var(--muted); font-size: 13px; }
     .ok { color: var(--ok); }
     .error { color: var(--error); }
+    .warn { color: var(--warn); }
     .mono { font-family: Consolas, monospace; }
     .hidden { display: none !important; }
     .login-mask { position: fixed; inset: 0; background: rgba(255, 247, 239, 0.86); display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px); }
@@ -50,13 +61,21 @@
     .tip { font-size: 13px; color: var(--muted); margin-top: 8px; }
     .tabs { display: flex; gap: 10px; margin-bottom: 16px; }
     .tab-btn.active { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color: #fffaf5; }
-    .tab-btn:not(.active) { background: #fff2e2; color: #a45710; border: 1px solid #efc18d; }
+    .tab-btn:not(.active) { background: #fff2e2; color: #a45710; border: 1px solid #efc18d; box-shadow: none; }
     .tab-panel.hidden { display: none; }
     .list-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-    .pager { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .pager { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
     .scroll-box { max-height: 620px; overflow: auto; padding-right: 4px; }
     .scroll-box::-webkit-scrollbar { width: 10px; }
     .scroll-box::-webkit-scrollbar-thumb { background: #e8c39a; border-radius: 999px; }
+    .cmd-box { background: var(--cmd-bg); color: var(--cmd-text); border-radius: 16px; border: 1px solid #4e392e; padding: 10px 12px; font-family: Consolas, monospace; }
+    .cmd-line { padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.06); white-space: pre-wrap; word-break: break-word; }
+    .cmd-line:last-child { border-bottom: none; }
+    .cmd-line.info { color: var(--cmd-info); }
+    .cmd-line.error { color: var(--cmd-error); }
+    .cmd-line .meta { color: var(--cmd-meta); }
+    .cmd-line pre { margin: 6px 0 0; color: var(--cmd-code); background: rgba(121,195,255,0.08); border-left: 3px solid rgba(121,195,255,0.5); padding: 8px; overflow: auto; }
+    .balance-tag { display:inline-block; padding:4px 8px; border-radius:999px; background:#fff2e2; color:#8f5319; font-size:12px; margin-right:8px; }
     @media (max-width: 960px) { .hero, .panel-grid, .stat-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -68,7 +87,7 @@
       <p class="subtitle">请输入后台登录密码后查看密钥、余额、日志和导出功能。</p>
       <input id="passwordInput" type="password" placeholder="请输入登录密码" />
       <div class="row" style="margin-top:12px;"><button id="loginBtn">登录</button></div>
-      <div class="tip">API 调用密码需放在请求头 <span class="mono">x-api-key</span> 或 <span class="mono">Authorization: Bearer ...</span>。</div>
+      <div class="tip">按 Enter 键也可以直接提交密码。</div>
       <div id="loginMsg" class="error" style="margin-top:10px;"></div>
     </div>
   </div>
@@ -98,7 +117,9 @@
         <div class="row" style="margin-top:12px;">
           <button id="importBtn">导入</button>
           <button class="secondary" id="exportBtn">批量导出</button>
+          <button class="secondary" id="refreshAllBalanceBtn">批量查询余额</button>
         </div>
+        <div id="batchProgress" class="tip">尚未执行批量余额查询。</div>
       </div>
       <div class="card">
         <h3>运行状态</h3>
@@ -143,15 +164,18 @@
         <div class="list-toolbar">
           <div>
             <h3 style="margin-bottom:4px;">日志</h3>
-            <div class="muted">日志区域启用滚动，不再整页铺开。</div>
+            <div class="muted">传统命令行风格日志视图，不分块，支持颜色区分。</div>
           </div>
-          <select id="logLevel" style="max-width:180px;">
-            <option value="">全部</option>
-            <option value="info">info</option>
-            <option value="error">error</option>
-          </select>
+          <div class="row center">
+            <select id="logLevel" style="max-width:180px;">
+              <option value="">全部</option>
+              <option value="info">info</option>
+              <option value="error">error</option>
+            </select>
+            <button class="secondary" id="refreshLogsBtn">刷新日志</button>
+          </div>
         </div>
-        <div id="logsList" class="scroll-box"></div>
+        <div id="logsList" class="cmd-box scroll-box"></div>
       </div>
     </section>
   </div>
@@ -169,6 +193,7 @@
     const pageSizeSelect = document.getElementById('pageSizeSelect');
     const pageInfo = document.getElementById('pageInfo');
     const keySummary = document.getElementById('keySummary');
+    const batchProgress = document.getElementById('batchProgress');
 
     let allKeys = [];
     let currentPage = 1;
@@ -183,14 +208,19 @@
       return data;
     }
 
+    function escapeHtml(str) {
+      return String(str ?? '').replace(/[&<>"']/g, (m) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+    }
+
     function showApp() { loginMask.classList.add('hidden'); appWrap.classList.remove('hidden'); }
     function showLogin(message = '') { appWrap.classList.add('hidden'); loginMask.classList.remove('hidden'); loginMsg.textContent = message; }
 
     function renderStats(aggregate) {
       const cards = [
         ['Key 数量', aggregate.keyCount ?? 0],
+        ['已用 Credits', aggregate.usedCredits ?? 0],
         ['剩余 Credits', aggregate.remainingCredits ?? 0],
-        ['剩余 Tokens', aggregate.remainingTokens ?? 0],
+        ['已用 Tokens', aggregate.usedTokens ?? 0],
         ['累计代理请求', aggregate.totalRequests ?? 0],
       ];
       statsEl.innerHTML = cards.map(([label, value]) => `<div class="card stat">${label}<strong>${value}</strong></div>`).join('');
@@ -201,80 +231,139 @@
       const totalPages = Math.max(1, Math.ceil(total / pageSize));
       if (currentPage > totalPages) currentPage = totalPages;
       const start = (currentPage - 1) * pageSize;
-      const end = start + pageSize;
-      return { list: allKeys.slice(start, end), total, totalPages, start };
+      return { list: allKeys.slice(start, start + pageSize), total, totalPages, start };
     }
 
     function renderKeys() {
       const { list, total, totalPages, start } = getPagedKeys();
-      keySummary.textContent = `共 ${total} 条，当前显示第 ${currentPage} 页`; 
+      keySummary.textContent = `共 ${total} 条，当前显示第 ${currentPage} 页`;
       pageInfo.textContent = `第 ${currentPage} / ${totalPages} 页`;
       document.getElementById('prevPageBtn').disabled = currentPage <= 1;
       document.getElementById('nextPageBtn').disabled = currentPage >= totalPages;
-
       if (!list.length) {
         keysListEl.innerHTML = '<p class="muted">当前还没有导入任何 key。</p>';
         return;
       }
-
-      keysListEl.innerHTML = list.map((item, idx) => `
-        <div class="key-item">
-          <div class="key-top">
-            <div>
-              <strong>#${start + idx + 1} · ${item.maskedKey}</strong>
-              <div class="muted mono">${item.fingerprint}</div>
+      keysListEl.innerHTML = list.map((item, idx) => {
+        const balance = item.balance || {};
+        const planCredits = balance.planCredits ?? '-';
+        const usedCredits = balance.usedCredits ?? '-';
+        const remainingCredits = balance.remainingCredits ?? '-';
+        return `
+          <div class="key-item">
+            <div class="key-top">
+              <div>
+                <strong>#${start + idx + 1} · ${item.maskedKey}</strong>
+                <div class="muted mono">${item.fingerprint}</div>
+              </div>
+              <div class="row">
+                <button class="secondary mini" onclick="querySingleBalance('${item.id}')">查询余额</button>
+                <button class="danger mini" onclick="removeKey('${item.id}')">删除</button>
+              </div>
             </div>
-            <button class="danger" onclick="removeKey('${item.id}')">删除</button>
+            <div class="row muted" style="margin-top:10px;">
+              <span class="balance-tag">总 Credits：${planCredits}</span>
+              <span class="balance-tag">已用 Credits：${usedCredits}</span>
+              <span class="balance-tag">剩余 Credits：${remainingCredits}</span>
+            </div>
+            <div class="row muted" style="margin-top:8px;">
+              <span>总 Tokens：${balance.planTokens ?? '-'}</span>
+              <span>已用 Tokens：${balance.usedTokens ?? '-'}</span>
+              <span>剩余 Tokens：${balance.remainingTokens ?? '-'}</span>
+            </div>
+            <div class="row muted" style="margin-top:8px;">
+              <span>状态：<b class="${item.lastStatus === 'error' ? 'error' : 'ok'}">${item.lastStatus || 'idle'}</b></span>
+              <span>最近使用：${item.lastUsedAt || '-'}</span>
+              <span>余额更新时间：${balance.lastCheckedAt || '-'}</span>
+            </div>
+            ${item.lastError ? `<div class="error" style="margin-top:8px;">错误：${item.lastError}</div>` : ''}
           </div>
-          <div class="row muted" style="margin-top:10px;">
-            <span>剩余 Credits：${item.creditUsage?.remainingCredits ?? '-'}</span>
-            <span>剩余 Tokens：${item.tokenUsage?.remainingTokens ?? '-'}</span>
-            <span>请求数：${item.requestCount ?? 0}</span>
-          </div>
-          <div class="row muted" style="margin-top:8px;">
-            <span>状态：<b class="${item.lastStatus === 'error' ? 'error' : 'ok'}">${item.lastStatus || 'idle'}</b></span>
-            <span>最近使用：${item.lastUsedAt || '-'}</span>
-          </div>
-          ${item.lastError ? `<div class="error" style="margin-top:8px;">错误：${item.lastError}</div>` : ''}
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderLogs(logs) {
       if (!logs.length) {
-        logsListEl.innerHTML = '<p class="muted">暂无日志。</p>';
+        logsListEl.innerHTML = '<div class="cmd-line info">[system] 暂无日志</div>';
         return;
       }
       logsListEl.innerHTML = logs.map(item => `
-        <div class="log-item">
-          <div class="log-top">
-            <strong class="${item.level === 'error' ? 'error' : 'ok'}">${item.level}</strong>
-            <span class="muted">${item.time}</span>
-          </div>
-          <div style="margin-top:8px;">${item.message}</div>
-          <pre class="muted mono" style="white-space:pre-wrap; margin:8px 0 0;">${JSON.stringify(item.meta || {}, null, 2)}</pre>
+        <div class="cmd-line ${item.level === 'error' ? 'error' : 'info'}">
+[${escapeHtml(item.level.toUpperCase())}] <span class="meta">${escapeHtml(item.time)}</span> ${escapeHtml(item.message)}
+${item.meta && Object.keys(item.meta).length ? `<pre>${escapeHtml(JSON.stringify(item.meta, null, 2))}</pre>` : ''}
         </div>
       `).join('');
     }
 
+    async function refreshOverview() {
+      const overview = await j(`${API}/admin/overview`);
+      renderStats(overview.aggregate || {});
+      allKeys = overview.perKey || [];
+      renderKeys();
+      runtimeBox.innerHTML = `最后刷新：<b>${new Date().toLocaleString()}</b><br>API：<span class="mono">${API}</span><br>轮询间隔：15 秒`;
+    }
+
+    async function refreshLogs() {
+      const logs = await j(`${API}/admin/logs${logLevelEl.value ? `?level=${logLevelEl.value}` : ''}`);
+      renderLogs(logs.logs || []);
+    }
+
     async function refresh() {
       try {
-        const overview = await j(`${API}/admin/overview`);
-        const logs = await j(`${API}/admin/logs${logLevelEl.value ? `?level=${logLevelEl.value}` : ''}`);
-        renderStats(overview.aggregate || {});
-        allKeys = overview.perKey || [];
-        renderKeys();
-        renderLogs(logs.logs || []);
-        runtimeBox.innerHTML = `最后刷新：<b>${new Date().toLocaleString()}</b><br>API：<span class="mono">${API}</span><br>轮询间隔：15 秒`;
+        await Promise.all([refreshOverview(), refreshLogs()]);
       } catch (err) {
         if (err.status === 401) return showLogin('登录已失效，请重新输入密码');
         runtimeBox.innerHTML = `<span class="error">刷新失败：${err.message}</span>`;
       }
     }
 
+    function updateKeyInState(updatedKey) {
+      const index = allKeys.findIndex((item) => item.id === updatedKey.id);
+      if (index !== -1) allKeys[index] = updatedKey;
+      renderKeys();
+    }
+
+    async function querySingleBalance(id) {
+      try {
+        const result = await j(`${API}/admin/keys/${id}/balance`);
+        updateKeyInState(result.key);
+        await refreshOverview();
+      } catch (err) {
+        alert(`查询余额失败：${err.message}`);
+      }
+    }
+    window.querySingleBalance = querySingleBalance;
+
+    async function queryBalancesInBatches() {
+      const ids = allKeys.map((item) => item.id);
+      if (!ids.length) {
+        batchProgress.textContent = '没有可查询的 key。';
+        return;
+      }
+      let completed = 0;
+      let succeeded = 0;
+      batchProgress.innerHTML = `开始批量查询，共 <b>${ids.length}</b> 个 key，每批并行 50 个。`;
+      for (let i = 0; i < ids.length; i += 50) {
+        const batch = ids.slice(i, i + 50);
+        await Promise.all(batch.map(async (id) => {
+          try {
+            const result = await j(`${API}/admin/keys/${id}/balance`);
+            updateKeyInState(result.key);
+            succeeded += 1;
+          } catch {
+          } finally {
+            completed += 1;
+            batchProgress.innerHTML = `批量查询进行中：已返回 <b>${completed}</b> / ${ids.length}，成功 <b>${succeeded}</b> 个。`;
+          }
+        }));
+      }
+      await refreshOverview();
+      batchProgress.innerHTML = `批量查询完成：已返回 <b>${completed}</b> / ${ids.length}，成功 <b>${succeeded}</b> 个。`;
+    }
+
     async function removeKey(id) {
       await j(`${API}/admin/keys/${id}`, { method: 'DELETE' });
-      refresh();
+      await refreshOverview();
     }
     window.removeKey = removeKey;
 
@@ -283,12 +372,12 @@
       await j(`${API}/admin/keys/import`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ keysText }) });
       document.getElementById('keysInput').value = '';
       currentPage = 1;
-      refresh();
+      await refreshOverview();
     };
-
     document.getElementById('exportBtn').onclick = () => window.open(`${API}/admin/keys/export`, '_blank');
+    document.getElementById('refreshAllBalanceBtn').onclick = queryBalancesInBatches;
 
-    document.getElementById('loginBtn').onclick = async () => {
+    async function submitLogin() {
       loginMsg.textContent = '';
       const password = document.getElementById('passwordInput').value;
       try {
@@ -299,24 +388,26 @@
       } catch (err) {
         loginMsg.textContent = err.message;
       }
-    };
+    }
+    document.getElementById('loginBtn').onclick = submitLogin;
+    document.getElementById('passwordInput').addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitLogin();
+      }
+    });
 
     document.getElementById('logoutBtn').onclick = async () => {
       await j(`${API}/auth/logout`, { method: 'POST' });
       showLogin('已退出登录');
     };
 
-    pageSizeSelect.onchange = () => {
-      pageSize = Number(pageSizeSelect.value);
-      currentPage = 1;
-      renderKeys();
-    };
+    pageSizeSelect.onchange = () => { pageSize = Number(pageSizeSelect.value); currentPage = 1; renderKeys(); };
     document.getElementById('prevPageBtn').onclick = () => { if (currentPage > 1) { currentPage -= 1; renderKeys(); } };
     document.getElementById('nextPageBtn').onclick = () => {
       const totalPages = Math.max(1, Math.ceil(allKeys.length / pageSize));
       if (currentPage < totalPages) { currentPage += 1; renderKeys(); }
     };
-
     document.querySelectorAll('.tab-btn').forEach((btn) => {
       btn.onclick = () => {
         document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
@@ -325,8 +416,8 @@
         document.getElementById('tab-logs').classList.toggle('hidden', btn.dataset.tab !== 'logs');
       };
     });
-
-    logLevelEl.onchange = refresh;
+    logLevelEl.onchange = refreshLogs;
+    document.getElementById('refreshLogsBtn').onclick = refreshLogs;
 
     (async () => {
       try {

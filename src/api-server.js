@@ -2,7 +2,7 @@
 const cors = require('cors');
 const { API_PORT } = require('./config');
 const { importKeys, exportKeys, listKeys, removeKey } = require('./store');
-const { buildDashboardOverview, firecrawlFetch } = require('./firecrawl-client');
+const { buildDashboardOverview, firecrawlFetch, queryBalanceForKeyId } = require('./firecrawl-client');
 const logger = require('./logger');
 const { requireLogin, requireApiKey, loginHandler, logoutHandler, meHandler } = require('./auth');
 
@@ -28,6 +28,16 @@ app.post('/admin/keys/import', requireLogin, (req, res) => {
 
 app.get('/admin/keys', requireLogin, (_, res) => {
   res.json({ ok: true, keys: listKeys() });
+});
+
+app.get('/admin/keys/:id/balance', requireLogin, async (req, res) => {
+  try {
+    const key = await queryBalanceForKeyId(req.params.id);
+    res.json({ ok: true, key });
+  } catch (err) {
+    logger.error('Balance query failed', { id: req.params.id, message: err.message });
+    res.status(500).json({ ok: false, message: err.message });
+  }
 });
 
 app.delete('/admin/keys/:id', requireLogin, (req, res) => {

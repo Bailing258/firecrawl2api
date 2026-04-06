@@ -15,6 +15,8 @@
 - 批量导出所有已保存 Key
 - Round-Robin 轮询分发
 - Credits / Tokens 用量概览
+- 单个 key 查询余额
+- 批量并行查询余额（每批 50 个，实时刷新返回进度）
 - info / error 日志
 - WebUI 登录密码保护
 - API 调用密钥保护
@@ -22,7 +24,7 @@
 - Firecrawl Skill
 - 暖色系中文界面
 - Key 列表分页显示
-- 日志第二选项卡滚动查看
+- 日志第二选项卡滚动查看，命令行风格配色
 
 ## 环境变量
 
@@ -68,9 +70,13 @@ npm start
 Aa:2669521609
 ```
 
+支持直接按 `Enter` 提交密码。
+
 登录后可使用：
 - 批量导入 / 导出 key
 - 查看余额 / 用量
+- 单 key 查询余额
+- 批量查询余额
 - 查看日志
 - 删除 key
 - Key 分页切换
@@ -83,6 +89,16 @@ Aa:2669521609
 - `100`
 - `500`
 - `1000`
+
+## 余额查询说明
+
+Firecrawl 官方余额相关路径：
+- `GET /v2/team/credit-usage`
+- `GET /v2/team/token-usage`
+
+页面中：
+- `remainingCredits` / `remainingTokens` 直接来自官方接口
+- `usedCredits` / `usedTokens` 通过 `planCredits - remainingCredits`、`planTokens - remainingTokens` 推导得出（这是基于官方返回字段的推断）
 
 ## API 调用鉴权
 
@@ -119,6 +135,7 @@ curl -X POST http://127.0.0.1:13457/v2/scrape \
 以下接口需要先通过 WebUI 登录建立会话：
 - `POST /admin/keys/import`
 - `GET /admin/keys`
+- `GET /admin/keys/:id/balance`
 - `DELETE /admin/keys/:id`
 - `GET /admin/keys/export`
 - `GET /admin/overview`
