@@ -1,9 +1,9 @@
 ﻿<!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Firecrawl Router Station</title>
+  <title>Firecrawl 中转站</title>
   <style>
     :root {
       --bg: #fff7ef;
@@ -18,46 +18,102 @@
       --shadow: 0 18px 40px rgba(188, 122, 45, 0.12);
     }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Segoe UI", sans-serif; color: var(--text); background: linear-gradient(180deg, #fff8f0 0%, #fdeedc 100%); }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fff8f0 0%, #fdeedc 100%);
+    }
     .wrap { max-width: 1280px; margin: 0 auto; padding: 28px; }
-    .hero { background: linear-gradient(135deg, #fffdf8 0%, #f9dcc1 100%); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 28px; padding: 28px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; }
+    .hero {
+      background: linear-gradient(135deg, #fffdf8 0%, #f9dcc1 100%);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 18px;
+    }
     h1 { margin: 0 0 8px; font-size: 36px; }
     .subtitle { color: var(--muted); margin: 0; line-height: 1.6; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; background: #fff1df; border: 1px solid #f3c796; color: #a35709; padding: 8px 12px; border-radius: 999px; font-size: 13px; margin-bottom: 14px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff1df; border: 1px solid #f3c796; color: #a35709;
+      padding: 8px 12px; border-radius: 999px; font-size: 13px; margin-bottom: 14px;
+    }
     .panel-grid, .stat-grid { display: grid; gap: 18px; margin-top: 20px; }
     .panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 20px; box-shadow: var(--shadow); }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 22px;
+      padding: 20px; box-shadow: var(--shadow);
+    }
     .card h3 { margin-top: 0; }
-    textarea, input, select { width: 100%; border: 1px solid #e8c39a; border-radius: 14px; background: #fffcf7; padding: 12px 14px; color: var(--text); font: inherit; }
+    textarea, input, select {
+      width: 100%; border: 1px solid #e8c39a; border-radius: 14px; background: #fffcf7;
+      padding: 12px 14px; color: var(--text); font: inherit;
+    }
     textarea { min-height: 150px; resize: vertical; }
-    button { border: none; border-radius: 14px; padding: 12px 18px; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color: #fffaf5; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18); }
+    button {
+      border: none; border-radius: 14px; padding: 12px 18px; font-weight: 700; cursor: pointer;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      color: #fffaf5; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18);
+    }
     button.secondary { background: #fff2e2; color: #a45710; border: 1px solid #efc18d; box-shadow: none; }
     button.danger { background: #fff0e5; color: #b45309; border: 1px solid #efc18d; box-shadow: none; }
     .row { display: flex; gap: 12px; flex-wrap: wrap; }
     .stat { font-size: 14px; color: var(--muted); }
     .stat strong { display: block; font-size: 28px; color: var(--text); margin-top: 6px; }
-    .key-item, .log-item { border: 1px solid #efd3b3; border-radius: 18px; padding: 14px; background: #fff9f2; margin-bottom: 12px; }
+    .key-item, .log-item {
+      border: 1px solid #efd3b3; border-radius: 18px; padding: 14px; background: #fff9f2; margin-bottom: 12px;
+    }
     .key-top, .log-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .muted { color: var(--muted); font-size: 13px; }
     .ok { color: var(--ok); }
     .error { color: var(--error); }
     .mono { font-family: Consolas, monospace; }
-    @media (max-width: 960px) { .hero, .panel-grid, .stat-grid { grid-template-columns: 1fr; } }
+    .hidden { display: none !important; }
+    .login-mask {
+      position: fixed; inset: 0; background: rgba(255, 247, 239, 0.86);
+      display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(6px);
+    }
+    .login-card { width: min(460px, 100%); }
+    .tip { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    @media (max-width: 960px) {
+      .hero, .panel-grid, .stat-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div id="loginMask" class="login-mask">
+    <div class="card login-card">
+      <div class="badge">登录保护</div>
+      <h2 style="margin-top:0;">登录 Firecrawl 中转站</h2>
+      <p class="subtitle">请输入后台登录密码后查看密钥、余额、日志和导出功能。</p>
+      <input id="passwordInput" type="password" placeholder="请输入登录密码" />
+      <div class="row" style="margin-top:12px; align-items:center;">
+        <button id="loginBtn">登录</button>
+      </div>
+      <div class="tip">API 调用密码需放在请求头 `x-api-key` 或 `Authorization: Bearer ...`。</div>
+      <div id="loginMsg" class="error" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <div class="wrap hidden" id="appWrap">
     <section class="hero">
       <div>
-        <div class="badge">Firecrawl proxy station · key rotation · WebUI / MCP / Skill</div>
-        <h1>Firecrawl Router Station</h1>
-        <p class="subtitle">API listens on <span class="mono">13457</span>, WebUI on <span class="mono">13456</span>. The dashboard refreshes every 15 seconds and manages multiple Firecrawl keys from one place.</p>
+        <div class="badge">Firecrawl 中转站 · 轮询调度 · WebUI / MCP / Skill 一体化</div>
+        <h1>Firecrawl 中转站</h1>
+        <p class="subtitle">API 监听 <span class="mono">13457</span>，WebUI 监听 <span class="mono">13456</span>。页面每 15 秒自动轮询，集中管理多把 Firecrawl Key、余额、用量与日志。</p>
       </div>
       <div class="card" style="margin:0;">
-        <div class="stat">API root<strong id="apiRoot">http://127.0.0.1:13457</strong></div>
+        <div class="stat">接口根地址<strong id="apiRoot">http://127.0.0.1:13457</strong></div>
         <div class="stat">MCP HTTP<strong>http://127.0.0.1:13458/mcp</strong></div>
-        <div class="stat">Rotation mode<strong>Round Robin</strong></div>
+        <div class="stat">轮询策略<strong>Round Robin</strong></div>
+        <div class="row" style="margin-top:12px;">
+          <button class="secondary" id="logoutBtn">退出登录</button>
+        </div>
       </div>
     </section>
 
@@ -65,30 +121,31 @@
 
     <section class="panel-grid">
       <div class="card">
-        <h3>Batch import keys</h3>
-        <p class="muted">One key per line. Duplicate keys are ignored.</p>
+        <h3>批量导入 Key</h3>
+        <p class="muted">每行一个 key，重复值会自动忽略。</p>
         <textarea id="keysInput" placeholder="fc-xxxx&#10;fc-yyyy"></textarea>
         <div class="row" style="margin-top:12px;">
-          <button id="importBtn">Import</button>
-          <button class="secondary" id="exportBtn">Export all</button>
+          <button id="importBtn">导入</button>
+          <button class="secondary" id="exportBtn">批量导出</button>
         </div>
       </div>
       <div class="card">
-        <h3>Runtime status</h3>
-        <div id="runtimeBox" class="muted">Waiting for refresh...</div>
+        <h3>运行状态</h3>
+        <div id="runtimeBox" class="muted">等待刷新中…</div>
+        <div class="tip">直连 API 时，请带上调用密码请求头：<span class="mono">x-api-key</span></div>
       </div>
     </section>
 
     <section class="panel-grid">
       <div class="card">
-        <h3>Keys / credit / usage</h3>
+        <h3>Key 列表 / 余额 / 用量</h3>
         <div id="keysList"></div>
       </div>
       <div class="card">
         <div class="row" style="justify-content:space-between; align-items:center;">
-          <h3 style="margin-bottom:0;">Logs</h3>
+          <h3 style="margin-bottom:0;">日志</h3>
           <select id="logLevel" style="max-width:180px;">
-            <option value="">All</option>
+            <option value="">全部</option>
             <option value="info">info</option>
             <option value="error">error</option>
           </select>
@@ -104,19 +161,36 @@
     const logsListEl = document.getElementById('logsList');
     const runtimeBox = document.getElementById('runtimeBox');
     const logLevelEl = document.getElementById('logLevel');
+    const loginMask = document.getElementById('loginMask');
+    const appWrap = document.getElementById('appWrap');
+    const loginMsg = document.getElementById('loginMsg');
 
     async function j(url, options) {
-      const res = await fetch(url, options);
+      const res = await fetch(url, { credentials: 'include', ...options });
       const text = await res.text();
-      try { return JSON.parse(text); } catch { return text; }
+      let data;
+      try { data = JSON.parse(text); } catch { data = { raw: text }; }
+      if (!res.ok) throw Object.assign(new Error(data.message || '请求失败'), { status: res.status, data });
+      return data;
+    }
+
+    function showApp() {
+      loginMask.classList.add('hidden');
+      appWrap.classList.remove('hidden');
+    }
+
+    function showLogin(message = '') {
+      appWrap.classList.add('hidden');
+      loginMask.classList.remove('hidden');
+      loginMsg.textContent = message;
     }
 
     function renderStats(aggregate) {
       const cards = [
-        ['Key count', aggregate.keyCount ?? 0],
-        ['Remaining credits', aggregate.remainingCredits ?? 0],
-        ['Remaining tokens', aggregate.remainingTokens ?? 0],
-        ['Total routed requests', aggregate.totalRequests ?? 0],
+        ['Key 数量', aggregate.keyCount ?? 0],
+        ['剩余 Credits', aggregate.remainingCredits ?? 0],
+        ['剩余 Tokens', aggregate.remainingTokens ?? 0],
+        ['累计代理请求', aggregate.totalRequests ?? 0],
       ];
       statsEl.innerHTML = cards.map(([label, value]) => `
         <div class="card stat">${label}<strong>${value}</strong></div>
@@ -125,7 +199,7 @@
 
     function renderKeys(perKey) {
       if (!perKey.length) {
-        keysListEl.innerHTML = '<p class="muted">No keys imported yet.</p>';
+        keysListEl.innerHTML = '<p class="muted">当前还没有导入任何 key。</p>';
         return;
       }
       keysListEl.innerHTML = perKey.map(item => `
@@ -135,25 +209,25 @@
               <strong>${item.maskedKey}</strong>
               <div class="muted mono">${item.fingerprint}</div>
             </div>
-            <button class="danger" onclick="removeKey('${item.id}')">Delete</button>
+            <button class="danger" onclick="removeKey('${item.id}')">删除</button>
           </div>
           <div class="row muted" style="margin-top:10px;">
-            <span>Credits: ${item.creditUsage?.remainingCredits ?? '-'}</span>
-            <span>Tokens: ${item.tokenUsage?.remainingTokens ?? '-'}</span>
-            <span>Requests: ${item.requestCount ?? 0}</span>
+            <span>剩余 Credits：${item.creditUsage?.remainingCredits ?? '-'}</span>
+            <span>剩余 Tokens：${item.tokenUsage?.remainingTokens ?? '-'}</span>
+            <span>请求数：${item.requestCount ?? 0}</span>
           </div>
           <div class="row muted" style="margin-top:8px;">
-            <span>Status: <b class="${item.lastStatus === 'error' ? 'error' : 'ok'}">${item.lastStatus || 'idle'}</b></span>
-            <span>Last used: ${item.lastUsedAt || '-'}</span>
+            <span>状态：<b class="${item.lastStatus === 'error' ? 'error' : 'ok'}">${item.lastStatus || 'idle'}</b></span>
+            <span>最近使用：${item.lastUsedAt || '-'}</span>
           </div>
-          ${item.lastError ? `<div class="error" style="margin-top:8px;">Error: ${item.lastError}</div>` : ''}
+          ${item.lastError ? `<div class="error" style="margin-top:8px;">错误：${item.lastError}</div>` : ''}
         </div>
       `).join('');
     }
 
     function renderLogs(logs) {
       if (!logs.length) {
-        logsListEl.innerHTML = '<p class="muted">No logs yet.</p>';
+        logsListEl.innerHTML = '<p class="muted">暂无日志。</p>';
         return;
       }
       logsListEl.innerHTML = logs.map(item => `
@@ -169,25 +243,31 @@
     }
 
     async function refresh() {
-      const overview = await j(`${API}/admin/overview`);
-      const logs = await j(`${API}/admin/logs${logLevelEl.value ? `?level=${logLevelEl.value}` : ''}`);
-      if (overview.ok) {
+      try {
+        const overview = await j(`${API}/admin/overview`);
+        const logs = await j(`${API}/admin/logs${logLevelEl.value ? `?level=${logLevelEl.value}` : ''}`);
         renderStats(overview.aggregate || {});
         renderKeys(overview.perKey || []);
-        runtimeBox.innerHTML = `Last refresh: <b>${new Date().toLocaleString()}</b><br>API: <span class="mono">${API}</span><br>Polling interval: 15 seconds`;
+        renderLogs(logs.logs || []);
+        runtimeBox.innerHTML = `最后刷新：<b>${new Date().toLocaleString()}</b><br>API：<span class="mono">${API}</span><br>轮询间隔：15 秒`;
+      } catch (err) {
+        if (err.status === 401) {
+          showLogin('登录已失效，请重新输入密码');
+          return;
+        }
+        runtimeBox.innerHTML = `<span class="error">刷新失败：${err.message}</span>`;
       }
-      if (logs.ok) renderLogs(logs.logs || []);
     }
 
     async function removeKey(id) {
-      await fetch(`${API}/admin/keys/${id}`, { method: 'DELETE' });
+      await j(`${API}/admin/keys/${id}`, { method: 'DELETE' });
       refresh();
     }
     window.removeKey = removeKey;
 
     document.getElementById('importBtn').onclick = async () => {
       const keysText = document.getElementById('keysInput').value.trim();
-      await fetch(`${API}/admin/keys/import`, {
+      await j(`${API}/admin/keys/import`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ keysText })
@@ -200,9 +280,44 @@
       window.open(`${API}/admin/keys/export`, '_blank');
     };
 
+    document.getElementById('loginBtn').onclick = async () => {
+      loginMsg.textContent = '';
+      const password = document.getElementById('passwordInput').value;
+      try {
+        await j(`${API}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+        document.getElementById('passwordInput').value = '';
+        showApp();
+        refresh();
+      } catch (err) {
+        loginMsg.textContent = err.message;
+      }
+    };
+
+    document.getElementById('logoutBtn').onclick = async () => {
+      await j(`${API}/auth/logout`, { method: 'POST' });
+      showLogin('已退出登录');
+    };
+
     logLevelEl.onchange = refresh;
-    refresh();
-    setInterval(refresh, 15000);
+
+    (async () => {
+      try {
+        const me = await j(`${API}/auth/me`);
+        if (me.loggedIn) {
+          showApp();
+          refresh();
+          setInterval(refresh, 15000);
+        } else {
+          showLogin();
+        }
+      } catch {
+        showLogin('无法连接到后端服务');
+      }
+    })();
   </script>
 </body>
 </html>
