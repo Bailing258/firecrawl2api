@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="zh-CN">
+ï»¿<!doctype html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,78 +18,46 @@
       --shadow: 0 18px 40px rgba(188, 122, 45, 0.12);
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", "PingFang SC", sans-serif;
-      color: var(--text);
-      background: linear-gradient(180deg, #fff8f0 0%, #fdeedc 100%);
-    }
+    body { margin: 0; font-family: "Segoe UI", sans-serif; color: var(--text); background: linear-gradient(180deg, #fff8f0 0%, #fdeedc 100%); }
     .wrap { max-width: 1280px; margin: 0 auto; padding: 28px; }
-    .hero {
-      background: linear-gradient(135deg, #fffdf8 0%, #f9dcc1 100%);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      border-radius: 28px;
-      padding: 28px;
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 18px;
-    }
+    .hero { background: linear-gradient(135deg, #fffdf8 0%, #f9dcc1 100%); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 28px; padding: 28px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; }
     h1 { margin: 0 0 8px; font-size: 36px; }
     .subtitle { color: var(--muted); margin: 0; line-height: 1.6; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #fff1df; border: 1px solid #f3c796; color: #a35709;
-      padding: 8px 12px; border-radius: 999px; font-size: 13px; margin-bottom: 14px;
-    }
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: #fff1df; border: 1px solid #f3c796; color: #a35709; padding: 8px 12px; border-radius: 999px; font-size: 13px; margin-bottom: 14px; }
     .panel-grid, .stat-grid { display: grid; gap: 18px; margin-top: 20px; }
     .panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 22px;
-      padding: 20px; box-shadow: var(--shadow);
-    }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 20px; box-shadow: var(--shadow); }
     .card h3 { margin-top: 0; }
-    textarea, input, select {
-      width: 100%; border: 1px solid #e8c39a; border-radius: 14px; background: #fffcf7;
-      padding: 12px 14px; color: var(--text); font: inherit;
-    }
+    textarea, input, select { width: 100%; border: 1px solid #e8c39a; border-radius: 14px; background: #fffcf7; padding: 12px 14px; color: var(--text); font: inherit; }
     textarea { min-height: 150px; resize: vertical; }
-    button {
-      border: none; border-radius: 14px; padding: 12px 18px; font-weight: 700; cursor: pointer;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-      color: #fffaf5; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18);
-    }
+    button { border: none; border-radius: 14px; padding: 12px 18px; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color: #fffaf5; box-shadow: 0 10px 24px rgba(217, 119, 6, 0.18); }
     button.secondary { background: #fff2e2; color: #a45710; border: 1px solid #efc18d; box-shadow: none; }
     button.danger { background: #fff0e5; color: #b45309; border: 1px solid #efc18d; box-shadow: none; }
     .row { display: flex; gap: 12px; flex-wrap: wrap; }
     .stat { font-size: 14px; color: var(--muted); }
     .stat strong { display: block; font-size: 28px; color: var(--text); margin-top: 6px; }
-    .key-item, .log-item {
-      border: 1px solid #efd3b3; border-radius: 18px; padding: 14px; background: #fff9f2; margin-bottom: 12px;
-    }
+    .key-item, .log-item { border: 1px solid #efd3b3; border-radius: 18px; padding: 14px; background: #fff9f2; margin-bottom: 12px; }
     .key-top, .log-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .muted { color: var(--muted); font-size: 13px; }
     .ok { color: var(--ok); }
     .error { color: var(--error); }
     .mono { font-family: Consolas, monospace; }
-    @media (max-width: 960px) {
-      .hero, .panel-grid, .stat-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 960px) { .hero, .panel-grid, .stat-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
       <div>
-        <div class="badge">Firecrawl ÖÐ×ªÕ¾ ¡¤ ÂÖÑ¯µ÷¶È ¡¤ WebUI/MCP/Skill Ò»Ìå»¯</div>
+        <div class="badge">Firecrawl proxy station Â· key rotation Â· WebUI / MCP / Skill</div>
         <h1>Firecrawl Router Station</h1>
-        <p class="subtitle">API ¹Ì¶¨¼àÌý <span class="mono">13457</span>£¬WebUI ¹Ì¶¨¼àÌý <span class="mono">13456</span>¡£Ò³ÃæÃ¿ 15 ÃëÂÖÑ¯Ë¢ÐÂ£¬ÊÊºÏ¼¯ÖÐ¹ÜÀí¶à°Ñ Firecrawl Key¡¢²é¿´Óà¶î/ÓÃÁ¿¡¢ÈÕÖ¾Óë×´Ì¬¡£</p>
+        <p class="subtitle">API listens on <span class="mono">13457</span>, WebUI on <span class="mono">13456</span>. The dashboard refreshes every 15 seconds and manages multiple Firecrawl keys from one place.</p>
       </div>
       <div class="card" style="margin:0;">
-        <div class="stat">Â·ÓÉ¸ùµØÖ·<strong id="apiRoot">http://127.0.0.1:13457</strong></div>
+        <div class="stat">API root<strong id="apiRoot">http://127.0.0.1:13457</strong></div>
         <div class="stat">MCP HTTP<strong>http://127.0.0.1:13458/mcp</strong></div>
-        <div class="stat">µ÷¶ÈÄ£Ê½<strong>Round Robin</strong></div>
+        <div class="stat">Rotation mode<strong>Round Robin</strong></div>
       </div>
     </section>
 
@@ -97,30 +65,30 @@
 
     <section class="panel-grid">
       <div class="card">
-        <h3>ÅúÁ¿µ¼Èë Key</h3>
-        <p class="muted">Ò»ÐÐÒ»¸ö key£¬ÖØ¸´Öµ»á×Ô¶¯È¥ÖØ¡£</p>
-        <textarea id="keysInput" placeholder="fc-xxxx\nfc-yyyy"></textarea>
+        <h3>Batch import keys</h3>
+        <p class="muted">One key per line. Duplicate keys are ignored.</p>
+        <textarea id="keysInput" placeholder="fc-xxxx&#10;fc-yyyy"></textarea>
         <div class="row" style="margin-top:12px;">
-          <button id="importBtn">µ¼Èë</button>
-          <button class="secondary" id="exportBtn">ÅúÁ¿µ¼³ö</button>
+          <button id="importBtn">Import</button>
+          <button class="secondary" id="exportBtn">Export all</button>
         </div>
       </div>
       <div class="card">
-        <h3>ÔËÐÐ×´Ì¬</h3>
-        <div id="runtimeBox" class="muted">µÈ´ýË¢ÐÂ¡­</div>
+        <h3>Runtime status</h3>
+        <div id="runtimeBox" class="muted">Waiting for refresh...</div>
       </div>
     </section>
 
     <section class="panel-grid">
       <div class="card">
-        <h3>Key ÁÐ±í / Óà¶î / ÓÃÁ¿</h3>
+        <h3>Keys / credit / usage</h3>
         <div id="keysList"></div>
       </div>
       <div class="card">
         <div class="row" style="justify-content:space-between; align-items:center;">
-          <h3 style="margin-bottom:0;">ÈÕÖ¾</h3>
+          <h3 style="margin-bottom:0;">Logs</h3>
           <select id="logLevel" style="max-width:180px;">
-            <option value="">È«²¿</option>
+            <option value="">All</option>
             <option value="info">info</option>
             <option value="error">error</option>
           </select>
@@ -145,10 +113,10 @@
 
     function renderStats(aggregate) {
       const cards = [
-        ['Key ÊýÁ¿', aggregate.keyCount ?? 0],
-        ['Ê£Óà Credits', aggregate.remainingCredits ?? 0],
-        ['Ê£Óà Tokens', aggregate.remainingTokens ?? 0],
-        ['ÀÛ¼Æ´úÀíÇëÇó', aggregate.totalRequests ?? 0],
+        ['Key count', aggregate.keyCount ?? 0],
+        ['Remaining credits', aggregate.remainingCredits ?? 0],
+        ['Remaining tokens', aggregate.remainingTokens ?? 0],
+        ['Total routed requests', aggregate.totalRequests ?? 0],
       ];
       statsEl.innerHTML = cards.map(([label, value]) => `
         <div class="card stat">${label}<strong>${value}</strong></div>
@@ -157,7 +125,7 @@
 
     function renderKeys(perKey) {
       if (!perKey.length) {
-        keysListEl.innerHTML = '<p class="muted">»¹Ã»ÓÐµ¼ÈëÈÎºÎ key¡£</p>';
+        keysListEl.innerHTML = '<p class="muted">No keys imported yet.</p>';
         return;
       }
       keysListEl.innerHTML = perKey.map(item => `
@@ -167,25 +135,25 @@
               <strong>${item.maskedKey}</strong>
               <div class="muted mono">${item.fingerprint}</div>
             </div>
-            <button class="danger" onclick="removeKey('${item.id}')">É¾³ý</button>
+            <button class="danger" onclick="removeKey('${item.id}')">Delete</button>
           </div>
           <div class="row muted" style="margin-top:10px;">
-            <span>Ê£Óà Credits£º${item.creditUsage?.remainingCredits ?? '-'}</span>
-            <span>Ê£Óà Tokens£º${item.tokenUsage?.remainingTokens ?? '-'}</span>
-            <span>ÇëÇóÊý£º${item.requestCount ?? 0}</span>
+            <span>Credits: ${item.creditUsage?.remainingCredits ?? '-'}</span>
+            <span>Tokens: ${item.tokenUsage?.remainingTokens ?? '-'}</span>
+            <span>Requests: ${item.requestCount ?? 0}</span>
           </div>
           <div class="row muted" style="margin-top:8px;">
-            <span>×´Ì¬£º<b class="${item.lastStatus === 'error' ? 'error' : 'ok'}">${item.lastStatus || 'idle'}</b></span>
-            <span>×î½üÊ¹ÓÃ£º${item.lastUsedAt || '-'}</span>
+            <span>Status: <b class="${item.lastStatus === 'error' ? 'error' : 'ok'}">${item.lastStatus || 'idle'}</b></span>
+            <span>Last used: ${item.lastUsedAt || '-'}</span>
           </div>
-          ${item.lastError ? `<div class="error" style="margin-top:8px;">´íÎó£º${item.lastError}</div>` : ''}
+          ${item.lastError ? `<div class="error" style="margin-top:8px;">Error: ${item.lastError}</div>` : ''}
         </div>
       `).join('');
     }
 
     function renderLogs(logs) {
       if (!logs.length) {
-        logsListEl.innerHTML = '<p class="muted">ÔÝÎÞÈÕÖ¾¡£</p>';
+        logsListEl.innerHTML = '<p class="muted">No logs yet.</p>';
         return;
       }
       logsListEl.innerHTML = logs.map(item => `
@@ -206,7 +174,7 @@
       if (overview.ok) {
         renderStats(overview.aggregate || {});
         renderKeys(overview.perKey || []);
-        runtimeBox.innerHTML = `×îºóË¢ÐÂ£º<b>${new Date().toLocaleString()}</b><br>API£º<span class="mono">${API}</span><br>ÂÖÑ¯¼ä¸ô£º15 Ãë`;
+        runtimeBox.innerHTML = `Last refresh: <b>${new Date().toLocaleString()}</b><br>API: <span class="mono">${API}</span><br>Polling interval: 15 seconds`;
       }
       if (logs.ok) renderLogs(logs.logs || []);
     }
