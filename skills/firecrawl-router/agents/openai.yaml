@@ -1,0 +1,3 @@
+display_name: Firecrawl Router Station
+short_description: 通过本地 Firecrawl 中转站执行抓取、搜索、映射与用量查询。
+default_prompt: 使用本地 Firecrawl Router Station 完成当前 Firecrawl 相关任务，优先走 13457/13458 本地接口。

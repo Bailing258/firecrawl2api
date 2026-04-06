@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "firecrawl-router-http": {
+      "type": "streamable-http",
+      "url": "http://127.0.0.1:13458/mcp"
+    }
+  }
+}

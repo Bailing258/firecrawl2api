@@ -1,0 +1,22 @@
+{
+  "name": "firecrawl-router",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Firecrawl API middleman with warm WebUI, key rotation, MCP and skill",
+  "main": "src/api-server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/start-all.js",
+    "start:api": "node src/api-server.js",
+    "start:web": "node src/ui-server.js",
+    "start:mcp:http": "node src/mcp-http.js",
+    "start:mcp:stdio": "node src/mcp-stdio.js",
+    "check": "node src/self-check.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "zod": "^4.1.12"
+  }
+}

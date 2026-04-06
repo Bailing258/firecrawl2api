@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "firecrawl-router-stdio": {
+      "command": "node",
+      "args": ["E:/github/firecrawl/src/mcp-stdio.js"]
+    }
+  }
+}
