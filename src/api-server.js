@@ -39,11 +39,7 @@ app.post('/admin/keys/import', requireLogin, (req, res) => {
   logger.info('Imported Firecrawl keys', result);
   res.json({ ok: true, ...result });
 });
-
-app.get('/admin/keys', requireLogin, (_, res) => {
-  res.json({ ok: true, keys: listKeys() });
-});
-
+app.get('/admin/keys', requireLogin, (_, res) => res.json({ ok: true, keys: listKeys() }));
 app.get('/admin/keys/:id/balance', requireLogin, async (req, res) => {
   try {
     const key = await queryBalanceForKeyId(req.params.id);
@@ -53,21 +49,18 @@ app.get('/admin/keys/:id/balance', requireLogin, async (req, res) => {
     res.status(500).json({ ok: false, message: err.message });
   }
 });
-
 app.delete('/admin/keys/:id', requireLogin, (req, res) => {
   const ok = removeKey(req.params.id);
   if (!ok) return res.status(404).json({ ok: false, message: 'Key not found' });
   logger.info('Removed Firecrawl key', { id: req.params.id });
   res.json({ ok: true });
 });
-
 app.get('/admin/keys/export', requireLogin, (_, res) => {
   const keys = exportKeys();
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.setHeader('Content-Disposition', 'attachment; filename="firecrawl-keys.txt"');
   res.send(keys);
 });
-
 app.get('/admin/overview', requireLogin, async (_, res) => {
   try {
     const data = await buildDashboardOverview();
@@ -77,10 +70,13 @@ app.get('/admin/overview', requireLogin, async (_, res) => {
     res.status(500).json({ ok: false, message: err.message });
   }
 });
-
 app.get('/admin/logs', requireLogin, (req, res) => {
   const { level, limit } = req.query;
   res.json({ ok: true, logs: logger.getLogs(level, limit) });
+});
+app.post('/admin/logs/clear', requireLogin, (_, res) => {
+  logger.clearLogs();
+  res.json({ ok: true, message: '日志已清空' });
 });
 
 async function proxyHandler(req, res) {

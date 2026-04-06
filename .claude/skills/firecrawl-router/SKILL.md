@@ -1,6 +1,6 @@
 ﻿---
 name: firecrawl-router
-description: 使用远程 Firecrawl Router MCP 作为统一入口，适合不确定该选哪个 Firecrawl 能力、想让 Claude 自动挑选 scrape/map/search/crawl/extract/browser/interact/agent/raw-request 工具时使用。
+description: 使用远程 Firecrawl Router MCP 作为统一入口，默认连接 https://fire.bailingzzz.us.ci/mcp，适合不确定该选哪个 Firecrawl 能力、想让 Claude 自动挑选 scrape/map/search/crawl/extract/browser/interact/agent/raw-request 工具时使用。
 ---
 
 # Firecrawl Router
@@ -8,7 +8,8 @@ description: 使用远程 Firecrawl Router MCP 作为统一入口，适合不确
 这个 skill 是总入口。它假设 Claude Code 已通过 `.mcp.json` 连接到远程 MCP：
 
 - 服务名：`firecrawl-router-http`
-- 推荐路径：`https://你的域名/mcp`
+- MCP 地址：`https://fire.bailingzzz.us.ci/mcp`
+- API 域名：`https://fire.bailingzzz.us.ci`
 
 ## 默认策略
 
@@ -18,7 +19,6 @@ description: 使用远程 Firecrawl Router MCP 作为统一入口，适合不确
    - 发起路径
    - 任务 id
    - 当前状态
-   - 如果用户要求等待，再继续轮询状态工具
 
 ## 工具选择
 
@@ -34,9 +34,3 @@ description: 使用远程 Firecrawl Router MCP 作为统一入口，适合不确
 - Agent：`agent_run` / `agent_status`
 - 用量：`get_credit_usage` / `get_token_usage` / `get_activity` / `get_queue_status`
 - 原始请求：`firecrawl_raw_request`
-
-## 输出要求
-
-- 默认先给摘要，再给关键字段。
-- 需要时附上 JSON 片段，但不要直接贴整份大响应。
-- 如果用了 `firecrawl_raw_request`，要明确说明调用的真实 `/v2/...` 路径。

@@ -1,4 +1,4 @@
-const fs = require('node:fs');
+﻿const fs = require('node:fs');
 const path = require('node:path');
 const { LOG_FILE } = require('./config');
 
@@ -35,9 +35,13 @@ function error(message, meta) {
 
 function getLogs(level, limit = 200) {
   const safeLimit = Math.max(1, Math.min(Number(limit) || 200, 500));
-  return logs
-    .filter((item) => !level || item.level === level)
-    .slice(0, safeLimit);
+  return logs.filter((item) => !level || item.level === level).slice(0, safeLimit);
 }
 
-module.exports = { info, error, getLogs };
+function clearLogs() {
+  logs.length = 0;
+  ensureLogFile();
+  fs.writeFileSync(LOG_FILE, '');
+}
+
+module.exports = { info, error, getLogs, clearLogs };

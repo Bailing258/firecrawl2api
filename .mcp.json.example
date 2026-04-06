@@ -2,7 +2,7 @@
   "mcpServers": {
     "firecrawl-router-http": {
       "type": "http",
-      "url": "https://your-domain.example/mcp"
+      "url": "https://fire.bailingzzz.us.ci/mcp"
     }
   }
 }

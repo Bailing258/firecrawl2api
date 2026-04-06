@@ -181,7 +181,7 @@
   </div>
 
   <script>
-    const API = window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost') ? 'http://127.0.0.1:13457' : window.location.origin;
+    const API = window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost') ? 'http://127.0.0.1:13457' : 'https://fire.bailingzzz.us.ci';
     const statsEl = document.getElementById('stats');
     const keysListEl = document.getElementById('keysList');
     const logsListEl = document.getElementById('logsList');
@@ -423,6 +423,11 @@ ${item.meta && Object.keys(item.meta).length ? `<pre>${escapeHtml(JSON.stringify
     });
     logLevelEl.onchange = refreshLogs;
     document.getElementById('refreshLogsBtn').onclick = refreshLogs;
+    document.getElementById('clearLogsBtn').onclick = async () => {
+      if (!confirm('?????????')) return;
+      await j(`${API}/admin/logs/clear`, { method: 'POST' });
+      await refreshLogs();
+    };
 
     (async () => {
       try {

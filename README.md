@@ -53,8 +53,8 @@ npm start
 
 启动后：
 - WebUI：`http://127.0.0.1:13456`
-- API：`http://127.0.0.1:13457`
-- MCP HTTP（推荐）：`http://127.0.0.1:13456/mcp`
+- API：`https://fire.bailingzzz.us.ci`
+- MCP HTTP（推荐）：`https://fire.bailingzzz.us.ci/mcp`
 - MCP HTTP（兼容旧地址）：`http://127.0.0.1:13458/mcp`
 
 ## SDK / MCP 建议接入方式
@@ -62,13 +62,13 @@ npm start
 推荐以后统一把 MCP 挂到与 WebUI 同域的：
 
 ```text
-http://127.0.0.1:13456/mcp
+https://fire.bailingzzz.us.ci/mcp
 ```
 
 这样后续你挂域名时，可以直接使用：
 
 ```text
-https://你的域名/mcp
+https://fire.bailingzzz.us.ci/mcp
 ```
 
 而不必额外暴露单独端口。
@@ -99,7 +99,7 @@ https://你的域名/mcp
   "mcpServers": {
     "firecrawl-router-http": {
       "type": "streamable-http",
-      "url": "http://127.0.0.1:13456/mcp"
+      "url": "https://fire.bailingzzz.us.ci/mcp"
     }
   }
 }
@@ -111,8 +111,8 @@ https://你的域名/mcp
 - `skills/firecrawl-router/SKILL.md`
 
 该 skill 现在默认使用：
-- Router API：`http://127.0.0.1:13457`
-- MCP HTTP：`http://127.0.0.1:13456/mcp`
+- Router API：`https://fire.bailingzzz.us.ci`
+- MCP HTTP：`https://fire.bailingzzz.us.ci/mcp`
 
 ## 参考文档
 
@@ -165,7 +165,7 @@ https://你的域名/mcp
   "mcpServers": {
     "firecrawl-router-http": {
       "type": "http",
-      "url": "https://你的域名/mcp"
+      "url": "https://fire.bailingzzz.us.ci/mcp"
     }
   }
 }
@@ -193,9 +193,9 @@ window.location.origin
 ```
 
 也就是：
-- 页面在 `https://你的域名` 打开时
+- 页面在 `https://fire.bailingzzz.us.ci` 打开时
 - 登录、管理接口、状态查询都会自动走同域
-- MCP 也走 `https://你的域名/mcp`
+- MCP 也走 `https://fire.bailingzzz.us.ci/mcp`
 
 这样可以避免：
 - CORS
@@ -203,8 +203,8 @@ window.location.origin
 - `127.0.0.1` 写死导致的登录失败
 
 本地开发时仍会自动回落到：
-- API：`http://127.0.0.1:13457`
-- MCP：`http://127.0.0.1:13456/mcp`
+- API：`https://fire.bailingzzz.us.ci`
+- MCP：`https://fire.bailingzzz.us.ci/mcp`
 
 ## 反向代理建议
 
@@ -224,3 +224,4 @@ window.location.origin
   - `Secure`
 
 这样 HTTPS 域名反代后，登录 cookie 可以正常工作。
+

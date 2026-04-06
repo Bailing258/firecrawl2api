@@ -4,14 +4,14 @@
 
 ## 1. MCP 配置
 
-把根目录的 `.mcp.json.example` 复制为你的 `.mcp.json`，并把 URL 改成你的域名：
+把根目录的 `.mcp.json.example` 复制为你的 `.mcp.json`：
 
 ```json
 {
   "mcpServers": {
     "firecrawl-router-http": {
       "type": "http",
-      "url": "https://你的域名/mcp"
+      "url": "https://fire.bailingzzz.us.ci/mcp"
     }
   }
 }
@@ -37,7 +37,3 @@ Claude Code 可直接读取：
 - firecrawl-usage
 - firecrawl-raw-request
 - firecrawl-sdk-router
-
-## 3. 目的
-
-让 Claude Code 在远程使用你的 `/mcp`，同时通过 skills 快速选择能力，不必每次手动解释 MCP 路径和工具名。
