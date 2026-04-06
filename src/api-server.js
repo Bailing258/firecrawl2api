@@ -8,8 +8,8 @@ const { requireLogin, requireApiKey, loginHandler, logoutHandler, meHandler } = 
 
 const app = express();
 app.use(cors({ origin: ['http://127.0.0.1:13456', 'http://localhost:13456'], credentials: true }));
-app.use(express.json({ limit: '2mb' }));
-app.use(express.text({ type: 'text/plain', limit: '2mb' }));
+app.use(express.json({ limit: '8mb' }));
+app.use(express.text({ type: 'text/plain', limit: '8mb' }));
 
 app.get('/health', (_, res) => {
   res.json({ ok: true, port: API_PORT, now: new Date().toISOString() });
@@ -69,28 +69,6 @@ app.get('/admin/logs', requireLogin, (req, res) => {
   res.json({ ok: true, logs: logger.getLogs(level, limit) });
 });
 
-const passthroughRoutes = [
-  ['POST', '/v2/scrape'],
-  ['GET', '/v2/scrape/:id'],
-  ['POST', '/v2/map'],
-  ['POST', '/v2/search'],
-  ['POST', '/v2/crawl'],
-  ['GET', '/v2/crawl/:id'],
-  ['DELETE', '/v2/crawl/:id'],
-  ['GET', '/v2/crawl/:id/errors'],
-  ['GET', '/v2/crawl/active'],
-  ['POST', '/v2/extract'],
-  ['GET', '/v2/extract/:id'],
-  ['POST', '/v2/batch/scrape'],
-  ['GET', '/v2/batch/scrape/:id'],
-  ['GET', '/v2/batch/scrape/:id/errors'],
-  ['DELETE', '/v2/batch/scrape/:id'],
-  ['GET', '/v2/team/credit-usage'],
-  ['GET', '/v2/team/token-usage'],
-  ['GET', '/v2/team/queue-status'],
-  ['GET', '/v2/team/activity'],
-];
-
 async function proxyHandler(req, res) {
   try {
     const result = await firecrawlFetch(req.originalUrl, {
@@ -104,9 +82,7 @@ async function proxyHandler(req, res) {
   }
 }
 
-for (const [method, route] of passthroughRoutes) {
-  app[method.toLowerCase()](route, requireApiKey, proxyHandler);
-}
+app.use('/v2', requireApiKey, proxyHandler);
 
 if (require.main === module) {
   app.listen(API_PORT, () => {
