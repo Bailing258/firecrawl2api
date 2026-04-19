@@ -10,15 +10,14 @@ const app = express();
 app.set('trust proxy', true);
 
 const allowlist = new Set([
-  'http://127.0.0.1:13456',
-  'http://localhost:13456',
-  'https://fire.bailingzzz.us.ci'
+  'http://127.0.0.1:13457',
+  'http://localhost:13457',
 ]);
 
 app.use(cors({
   origin(origin, callback) {
     if (!origin || allowlist.has(origin)) return callback(null, true);
-    return callback(new Error(`CORS origin not allowed: ${origin}`));
+    return callback(null, true);
   },
   credentials: true,
 }));
@@ -103,7 +102,8 @@ app.post('/admin/logs/clear', requireLogin, (_, res) => {
 
 async function proxyHandler(req, res) {
   try {
-    const result = await firecrawlFetch(req.originalUrl, {
+    const forwardPath = req.originalUrl.replace(/^\/api(?=\/)/, '');
+    const result = await firecrawlFetch(forwardPath, {
       method: req.method,
       body: ['GET', 'DELETE'].includes(req.method) ? undefined : req.body,
     });

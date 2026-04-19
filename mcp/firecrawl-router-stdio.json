@@ -2,7 +2,7 @@
   "mcpServers": {
     "firecrawl-router-stdio": {
       "command": "node",
-      "args": ["E:/github/firecrawl/src/mcp-stdio.js"]
+      "args": ["E:/pythonapk/firecrawl2api/src/mcp-stdio.js"]
     }
   }
 }

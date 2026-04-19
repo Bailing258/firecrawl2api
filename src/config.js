@@ -1,4 +1,4 @@
-﻿const fs = require('node:fs');
+const fs = require('node:fs');
 const path = require('node:path');
 
 function loadEnvFile(filePath) {
@@ -25,9 +25,9 @@ loadEnvFile(path.join(ROOT, '.env'));
 
 module.exports = {
   ROOT,
-  WEB_PORT: 13456,
+  WEB_PORT: 13457,
   API_PORT: 13457,
-  MCP_HTTP_PORT: 13458,
+  MCP_HTTP_PORT: 13457,
   FIRECRAWL_BASE_URL: process.env.FIRECRAWL_BASE_URL || 'https://api.firecrawl.dev',
   DATABASE_URL: process.env.DATABASE_URL || 'postgresql://root:123456@192.168.5.20:7726/new-api',
   STORE_FILE: path.join(ROOT, 'data', 'store.json'),

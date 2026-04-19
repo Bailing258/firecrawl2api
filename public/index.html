@@ -97,7 +97,7 @@
       <div>
         <div class="badge">Firecrawl 中转站 · 轮询调度 · WebUI / MCP / Skill 一体化</div>
         <h1>Firecrawl 中转站</h1>
-        <p class="subtitle">API 监听 <span class="mono">13457</span>，WebUI 监听 <span class="mono">13456</span>。页面每 15 秒自动轮询，集中管理多把 Firecrawl Key、余额、用量与日志。</p>
+        <p class="subtitle">WebUI / API / MCP share port <span class="mono">13457</span>. Auto refresh every 15s for keys, usage and logs.</p>
       </div>
       <div class="card" style="margin:0;">
         <div class="stat">接口根地址<strong id="apiRootText">当前域名自动识别</strong></div>
@@ -182,7 +182,7 @@
   </div>
 
   <script>
-    const API = window.location.origin.includes('127.0.0.1') || window.location.origin.includes('localhost') ? 'http://127.0.0.1:13457' : 'https://fire.bailingzzz.us.ci';
+    const API = `${window.location.origin}/api`;
     const statsEl = document.getElementById('stats');
     const keysListEl = document.getElementById('keysList');
     const logsListEl = document.getElementById('logsList');
@@ -306,7 +306,7 @@ ${item.meta && Object.keys(item.meta).length ? `<pre>${escapeHtml(JSON.stringify
       renderStats(overview.aggregate || {});
       allKeys = overview.perKey || [];
       renderKeys();
-      runtimeBox.innerHTML = `最后刷新：<b>${new Date().toLocaleString()}</b><br>API：<span class="mono">${API}</span><br>轮询间隔：15 秒`;
+      runtimeBox.innerHTML = `Last refresh: <b>${new Date().toLocaleString()}</b><br>API: <span class="mono">${API}</span><br>MCP: <span class="mono">${window.location.origin}/mcp</span><br>Interval: 15s`;
     }
 
     async function refreshLogs() {
