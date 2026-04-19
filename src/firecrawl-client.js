@@ -7,7 +7,7 @@ const DEFAULT_HEADERS = {
 };
 
 async function firecrawlFetch(path, { method = 'GET', body, keyRecord, query } = {}) {
-  const activeKey = keyRecord || nextKey();
+  const activeKey = keyRecord || await nextKey();
   const url = new URL(path, FIRECRAWL_BASE_URL);
   if (query && typeof query === 'object') {
     for (const [k, v] of Object.entries(query)) {
@@ -38,7 +38,7 @@ async function firecrawlFetch(path, { method = 'GET', body, keyRecord, query } =
     data = { raw: text };
   }
 
-  updateKey(activeKey.id, {
+  await updateKey(activeKey.id, {
     lastStatus: response.ok ? 'ok' : 'error',
     lastError: response.ok ? null : data?.error || data?.message || `HTTP ${response.status}`,
   });
@@ -85,7 +85,7 @@ function normalizeBalanceData(creditData = {}, tokenData = {}) {
 }
 
 async function queryBalanceForKeyId(id) {
-  const keyRecord = getKeyById(id);
+  const keyRecord = await getKeyById(id);
   if (!keyRecord) {
     throw new Error('Key not found');
   }
@@ -106,13 +106,13 @@ async function queryBalanceForKeyId(id) {
       ? `${creditUsage.reason.message}; ${tokenUsage.reason.message}`
       : null,
   };
-  const updated = updateKey(id, patch);
+  const updated = await updateKey(id, patch);
   logger.info('Balance queried', { id, key: keyRecord.maskedKey, balance });
   return updated;
 }
 
 async function buildDashboardOverview() {
-  const perKey = listKeys();
+  const perKey = await listKeys();
   const aggregate = perKey.reduce((acc, item) => {
     const balance = item.balance || {};
     acc.keyCount += 1;
